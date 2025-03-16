@@ -31,4 +31,4 @@ app.use("/api/nutritions", authRoutes);
 connectDB();
 
 // Export the server (required by Vercel)
-module.exports = app;
+module.exports = server;
