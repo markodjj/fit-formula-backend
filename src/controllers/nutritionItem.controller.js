@@ -1,5 +1,5 @@
 const NutritionItem = require("../models/NutritionItem.js");
-
+const mongoose = require("mongoose");
 const makeNutritionItem = async (req, res) => {
   try {
     const newNutritionItem = new NutritionItem(req.body);
@@ -53,7 +53,8 @@ const getNutritionItemsByType = async (req, res) => {
   //   console.error("Error fetching NutritionItems:", error);
   //   res.status(500).json({ error: "Server error" });
   // }
-  res.status(500).json({ error: "Server errorrrr" });
+  const conn = await mongoose.connect(process.env.MONGODB_URI);
+  res.status(500).json({ conn });
 };
 
 module.exports = {
