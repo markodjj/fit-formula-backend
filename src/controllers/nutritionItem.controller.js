@@ -39,20 +39,21 @@ const getAllNutritionItems = async (req, res) => {
 };
 
 const getNutritionItemsByType = async (req, res) => {
-  try {
-    const { type } = req.query;
+  // try {
+  //   const { type } = req.query;
 
-    let query = {};
+  //   let query = {};
 
-    if (type) query.type = type;
-    // if (search) query.name = { $regex: search, $options: "i" }; // Case-insensitive search
+  //   if (type) query.type = type;
+  //   // if (search) query.name = { $regex: search, $options: "i" }; // Case-insensitive search
 
-    const NutritionItems = await NutritionItem.find(type);
-    res.json(NutritionItems);
-  } catch (error) {
-    console.error("Error fetching NutritionItems:", error);
-    res.status(500).json({ error: "Server error" });
-  }
+  //   const NutritionItems = await NutritionItem.find(type);
+  //   res.json(NutritionItems);
+  // } catch (error) {
+  //   console.error("Error fetching NutritionItems:", error);
+  //   res.status(500).json({ error: "Server error" });
+  // }
+  res.status(500).json({ error: "Server errorrrr" });
 };
 
 module.exports = {
