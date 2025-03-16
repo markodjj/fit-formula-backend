@@ -24,7 +24,17 @@ app.use(
 
 app.use("/api/nutritions", authRoutes);
 
-server.listen(PORT, () => {
-  console.log("server is running on port:" + PORT);
-  connectDB();
-});
+// server.listen(PORT, () => {
+//   console.log("server is running on port:" + PORT);
+//   connectDB();
+// });
+connectDB()
+  .then(() => {
+    server.listen(PORT, () => {
+      console.log(" Server is running on port:", PORT);
+    });
+  })
+  .catch((err) => {
+    console.error(" Failed to connect to MongoDB:", err);
+    process.exit(1); // Exit if DB connection fails
+  });
