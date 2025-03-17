@@ -10,6 +10,7 @@ dotenv.config();
 
 const PORT = process.env.PORT;
 const FRONTEND_URL = process.env.VITE_API_URL;
+console.log(FRONTEND_URL);
 app.use(express.json());
 // app.use(cookieParser());
 app.use(
