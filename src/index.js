@@ -8,7 +8,8 @@ const { app, server } = require("./lib/socket.js");
 const authRoutes = require("./routes/nutritionItem.route.js");
 dotenv.config();
 
-const PORT = process.env.PORT;
+const { NODE_ENV, PORT } = process.env;
+
 const FRONTEND_URL = process.env.VITE_API_URL;
 console.log(FRONTEND_URL);
 app.use(express.json());
@@ -25,11 +26,13 @@ app.use(
 
 app.use("/api/nutritions", authRoutes);
 
-// server.listen(PORT, () => {
-//   console.log("server is running on port:" + PORT);
-//   connectDB();
-// });
-connectDB();
-
-// Export the server (required by Vercel)
-module.exports = server;
+if (NODE_ENV === "development") {
+  server.listen(PORT, () => {
+    console.log("Server is running on port: " + PORT);
+    connectDB();
+  });
+} else if (NODE_ENV === "production") {
+  // For production, Vercel expects an exported server (or app)
+  connectDB();
+  module.exports = server;
+}
