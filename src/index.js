@@ -34,5 +34,5 @@ if (NODE_ENV === "development") {
 } else if (NODE_ENV === "production") {
   // For production, Vercel expects an exported server (or app)
   connectDB();
-  module.exports = server;
 }
+module.exports = server;
