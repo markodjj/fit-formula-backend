@@ -5,7 +5,7 @@ const cors = require("cors");
 const connectDB = require("./lib/db.js");
 const { app, server } = require("./lib/socket.js");
 
-const authRoutes = require("./routes/nutritionItem.route.js");
+const nutritionsRoutes = require("./routes/nutritionItem.route.js");
 dotenv.config();
 
 const { NODE_ENV, PORT } = process.env;
@@ -24,7 +24,7 @@ app.use(
 // app.use("/api/auth", authRoutes);
 // app.use("/api/messages", messageRoutes);
 
-app.use("/api/nutritions", authRoutes);
+app.use("/api/nutritions", nutritionsRoutes);
 
 if (NODE_ENV === "development") {
   server.listen(PORT, () => {

@@ -39,18 +39,32 @@ const getAllNutritionItems = async (req, res) => {
 };
 
 const getNutritionItemsByType = async (req, res) => {
+  // try {
+  //   const { type } = req.query;
+  //   console.log(type);
+  //   let query = {};
+
+  //   if (type) query.type = type;
+  //   // if (search) query.name = { $regex: search, $options: "i" }; // Case-insensitive search
+
+  //   const NutritionItems = await NutritionItem.find(type);
+  //   res.json(NutritionItems);
+  // } catch (error) {
+  //   console.error("Error fetching NutritionItems:", error);
+  //   res.status(500).json({ error: "Server error" });
+  // }
   try {
-    const { type } = req.query;
+    const { type, search } = req.query;
 
     let query = {};
 
-    if (type) query.type = type;
-    // if (search) query.name = { $regex: search, $options: "i" }; // Case-insensitive search
+    if (type) query.type = { $regex: type, $options: "i" };
+    if (search) query.name = { $regex: search, $options: "i" }; // Case-insensitive search
 
-    const NutritionItems = await NutritionItem.find(type);
-    res.json(NutritionItems);
+    const foods = await NutritionItem.find(query);
+    res.json(foods);
   } catch (error) {
-    console.error("Error fetching NutritionItems:", error);
+    console.error("Error fetching food:", error);
     res.status(500).json({ error: "Server error" });
   }
 };
