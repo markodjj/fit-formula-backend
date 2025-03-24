@@ -1,4 +1,12 @@
+require("dotenv").config();
 const NutritionItem = require("../models/NutritionItem.js");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const makeNutritionItem = async (req, res) => {
   try {
@@ -69,9 +77,31 @@ const getNutritionItemsByType = async (req, res) => {
   }
 };
 
+const getImage = async (req, res) => {
+  try {
+    const { name } = req.query; // Get the image name from query params
+    if (!name) return res.status(400).json({ error: "Missing image name" });
+
+    const result = await cloudinary.search
+      .expression(`resource_type:image AND filename:${name}*`)
+      .execute();
+
+    if (result.resources.length > 0) {
+      res.json({ imageUrl: result.resources[0].secure_url });
+    } else {
+      res.status(404).json({ error: "Image not found" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Error fetching image", details: error.message });
+  }
+};
+
 module.exports = {
   makeNutritionItem,
   makeManyNutritionItems,
   getAllNutritionItems,
   getNutritionItemsByType,
+  getImage,
 };
