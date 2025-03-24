@@ -15,5 +15,6 @@
         "Access-Control-Allow-Origin": "https://fit-formula.vercel.app"
       }
     }
-  ]
+  ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }

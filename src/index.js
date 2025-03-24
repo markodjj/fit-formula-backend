@@ -6,6 +6,8 @@ const connectDB = require("./lib/db.js");
 const { app, server } = require("./lib/socket.js");
 
 const nutritionsRoutes = require("./routes/nutritionItem.route.js");
+const userRouter = require("./routes/user.route.js");
+
 dotenv.config();
 
 const { NODE_ENV, PORT } = process.env;
@@ -25,6 +27,7 @@ app.use(
 // app.use("/api/messages", messageRoutes);
 
 app.use("/api/nutritions", nutritionsRoutes);
+app.use("/user", userRouter);
 
 if (NODE_ENV === "development") {
   server.listen(PORT, () => {
@@ -35,4 +38,4 @@ if (NODE_ENV === "development") {
   // For production, Vercel expects an exported server (or app)
   connectDB();
 }
-module.exports = server;
+// module.exports = server;
