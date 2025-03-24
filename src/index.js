@@ -22,7 +22,6 @@ app.use(
     credentials: true,
   })
 );
-
 // app.use("/api/auth", authRoutes);
 // app.use("/api/messages", messageRoutes);
 
@@ -38,4 +37,4 @@ if (NODE_ENV === "development") {
   // For production, Vercel expects an exported server (or app)
   connectDB();
 }
-// module.exports = server;
+module.exports = server;
